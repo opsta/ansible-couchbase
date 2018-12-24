@@ -1,0 +1,13 @@
+---
+  - name: Install Couchbase package
+    apt:
+      deb: "{{ couchbase_package_url }}"
+    environment:
+      INSTALL_DONT_START_SERVER: 1
+
+  - name: Ensure Couchbase started and enabled
+    systemd:
+      name: couchbase-server
+      state: started
+      enabled: yes
+      daemon_reload: yes

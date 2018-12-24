@@ -1,0 +1,27 @@
+---
+  - name: Add Couchbase group
+    group:
+      name: couchbase
+
+  - name: Add Couchbase user
+    user:
+      name: couchbase
+      group: couchbase
+      shell: /bin/bash
+      home: "{{ couchbase_home_path }}"
+
+  - name: Create Couchbase index folder
+    file:
+      path: "{{ couchbase_index_path }}"
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 0770
+
+  - name: Create Couchbase data folder
+    file:
+      path: "{{ couchbase_data_path }}"
+      state: directory
+      owner: couchbase
+      group: couchbase
+      mode: 0770

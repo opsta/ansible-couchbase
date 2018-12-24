@@ -1,0 +1,11 @@
+---
+  - include_tasks: couchbase_init_primary.yml
+    when: inventory_hostname in groups['primary']
+    vars:
+      couchbase_primary_node: "{{hostvars[groups['primary'][0]]['ansible_fqdn']}}"
+  - include_tasks: couchbase_init_additional.yml
+    when: inventory_hostname in groups['additional']
+  - include_tasks: couchbase_join.yml
+    when: inventory_hostname in groups['primary']
+    vars:
+      couchbase_primary_node: "{{hostvars[groups['primary'][0]]['ansible_fqdn']}}"

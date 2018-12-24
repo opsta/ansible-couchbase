@@ -1,0 +1,8 @@
+---
+- include_tasks: couchbase_pre.yml
+- include_tasks: couchbase_install.yml
+
+- block: # Config Nexus
+  - include_tasks: couchbase_post.yml
+  tags:
+    - couchbase-config

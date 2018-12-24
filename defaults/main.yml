@@ -1,0 +1,20 @@
+---
+couchbase_version: 4.1.1
+couchbase_package_name: "couchbase-server-community_{{ couchbase_version }}-ubuntu14.04_amd64.deb"
+couchbase_package_url: "http://packages.couchbase.com/releases/{{ couchbase_version }}/{{ couchbase_package_name }}"
+
+couchbase_home_path: "/opt/couchbase"
+couchbase_bin_path: "{{ couchbase_home_path }}/bin"
+couchbase_config_file: "{{ couchbase_home_path }}/var/lib/couchbase/config/config.dat"
+couchbase_data_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
+couchbase_index_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
+couchbase_log_path: "{{ couchbase_home_path }}/var/lib/couchbase/logs"
+
+couchbase_ram: 2048
+couchbase_admin_port: 8091
+couchbase_api_port: 8092
+couchbase_epmd_port: 4369
+couchbase_default_bucket: default
+
+couchbase_admin: Administrator
+couchbase_password: CHANGEME
