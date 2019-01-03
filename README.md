@@ -2,7 +2,7 @@
 
 ## Requirements
 
-None.
+- Fully qualified and resolvable FQDN domain name
 
 ## Role Variables
 
