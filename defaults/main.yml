@@ -10,7 +10,8 @@ couchbase_data_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
 couchbase_index_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
 couchbase_log_path: "{{ couchbase_home_path }}/var/lib/couchbase/logs"
 
-couchbase_memory: 2048
+couchbase_node_services: "data"
+couchbase_node_memory: 2048
 couchbase_admin_port: 8091
 couchbase_api_port: 8092
 couchbase_epmd_port: 4369

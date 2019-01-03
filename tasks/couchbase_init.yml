@@ -1,17 +1,17 @@
 ---
   - name: Get major version
     shell: cat /opt/couchbase/VERSION.txt | cut -d '.' -f1
-    register: cb_major_version
+    register: couchbase_major_version
 
   - name: Wait for Admin service
     wait_for:
-      port: "{{ couchbase_admin_port }}"
+      port: "{{ couchbase_admin_port }}" 
       delay: 2
 
-  - name: Initialize additional nodes
+  - name: Initialize nodes
     shell: "{{ couchbase_bin_path }}/couchbase-cli node-init -c {{ ansible_fqdn }}:{{ couchbase_admin_port }} --user={{ couchbase_admin }} --password={{ couchbase_password }} --cluster-init-username={{ couchbase_admin }} --node-init-hostname={{ ansible_fqdn }} --node-init-data-path={{ couchbase_data_path }} --node-init-index-path={{ couchbase_index_path }}"
-    when: cb_major_version['stdout'] != "2"
-    register: couchbase_init_additional_node
+    when: couchbase_major_version['stdout'] != "2"
+    register: couchbase_init_node
     failed_when:
-      - 'couchbase_init_additional_node.stdout != "SUCCESS: set hostname for {{ ansible_fqdn }}"'
-      - 'couchbase_init_additional_node.stdout != "ERROR: unable to set hostname for {{ ansible_fqdn }} (400) Bad Request\n[\"Renaming is disallowed for nodes that are already part of a cluster\"]"'
+      - "couchbase_init_node.stdout != 'SUCCESS: set hostname for ' ~ ansible_fqdn"
+      - "couchbase_init_node.stdout != 'ERROR: unable to set hostname for ' ~ ansible_fqdn ~ ' (400) Bad Request\n[\"Renaming is disallowed for nodes that are already part of a cluster\"]'"
