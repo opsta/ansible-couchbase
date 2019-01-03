@@ -1,0 +1,4 @@
+---
+couchbase_version: 4.1.1
+couchbase_apt_package_name: "couchbase-server-community_{{ couchbase_version }}-ubuntu14.04_amd64.deb"
+couchbase_apt_package_url: "http://packages.couchbase.com/releases/{{ couchbase_version }}/{{ couchbase_package_name }}"

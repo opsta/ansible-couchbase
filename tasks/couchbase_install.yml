@@ -1,7 +1,7 @@
 ---
   - name: Install Couchbase package
     apt:
-      deb: "{{ couchbase_package_url }}"
+      deb: "{{ couchbase_apt_package_url }}"
     environment:
       INSTALL_DONT_START_SERVER: 1
 
