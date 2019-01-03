@@ -8,9 +8,9 @@
       port: "{{ couchbase_admin_port }}"
       delay: 2
 
-  - name: Configure cluster settings (version != 4)
+  - name: Configure cluster settings (version < 4)
     shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --cluster-init-username={{ couchbase_admin_username }} --cluster-init-password={{ couchbase_admin_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }}"
-    when: couchbase_major_version['stdout'] != "4"
+    when: couchbase_major_version['stdout'] < "4"
     register: couchbase_configure_cluster
     failed_when:
       - "couchbase_configure_cluster.stdout != 'SUCCESS: set memory quota successfully'"
@@ -24,10 +24,10 @@
       - "couchbase_configure_cluster.stdout != 'SUCCESS: set memory quota successfully'"
       - "couchbase_configure_cluster.stdout != 'ERROR: unable to setup services (400) Bad Request\n[\"cannot change node services after cluster is provisioned\"]'"
 
-  - name: Join additional cluster nodes (version != 4)
+  - name: Join additional cluster nodes (version < 4)
     shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --server-add={{ hostvars[item[0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin_username }} --server-add-password={{ couchbase_admin_password }}"
     with_items: "{{ groups['couchbase-additional'] }}"
-    when: couchbase_major_version['stdout'] != "4"
+    when: couchbase_major_version['stdout'] < "4"
     # TODO: make this task idempotent
     # register: couchbase_join_cluster
     # failed_when:
