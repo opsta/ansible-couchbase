@@ -17,5 +17,5 @@ couchbase_api_port: 8092
 couchbase_epmd_port: 4369
 couchbase_default_bucket: default
 
-couchbase_admin: Administrator
-couchbase_password: CHANGEME
+couchbase_admin_username: Administrator
+couchbase_admin_password: CHANGEME

@@ -9,7 +9,7 @@
       delay: 2
 
   - name: Configure cluster settings (version != 4)
-    shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin }} --password={{ couchbase_password }} --cluster-init-username={{ couchbase_admin }} --cluster-init-password={{ couchbase_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }}"
+    shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --cluster-init-username={{ couchbase_admin_username }} --cluster-init-password={{ couchbase_admin_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }}"
     when: couchbase_major_version['stdout'] != "4"
     register: couchbase_configure_cluster
     failed_when:
@@ -17,7 +17,7 @@
       - "couchbase_configure_cluster.stdout != 'ERROR: unable to setup services (400) Bad Request\n[\"cannot change node services after cluster is provisioned\"]'"
 
   - name: Configure cluster settings (version >= 4)
-    shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin }} --password={{ couchbase_password }} --cluster-init-username={{ couchbase_admin }} --cluster-init-password={{ couchbase_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }} --services={{ couchbase_node_services }}"
+    shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --cluster-init-username={{ couchbase_admin_username }} --cluster-init-password={{ couchbase_admin_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }} --services={{ couchbase_node_services }}"
     when: couchbase_major_version['stdout'] >= "4"
     register: couchbase_configure_cluster
     failed_when:
@@ -25,7 +25,7 @@
       - "couchbase_configure_cluster.stdout != 'ERROR: unable to setup services (400) Bad Request\n[\"cannot change node services after cluster is provisioned\"]'"
 
   - name: Join additional cluster nodes (version != 4)
-    shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin }} --password={{ couchbase_password }} --server-add={{ hostvars[item[0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin }} --server-add-password={{ couchbase_password }}"
+    shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --server-add={{ hostvars[item[0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin_username }} --server-add-password={{ couchbase_admin_password }}"
     with_items: "{{ groups['couchbase-additional'] }}"
     when: couchbase_major_version['stdout'] != "4"
     # TODO: make this task idempotent
@@ -35,7 +35,7 @@
     #   - "couchbase_join_cluster.stdout != 'ERROR: unable to server-add ' ~ hostvars[item[0]][inventory_hostname] ~ ':8091 (400) Bad Request\n[\"Prepare join failed. Node is already part of cluster.\"]'"
 
   - name: Join additional cluster nodes (version >= 4)
-    shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin }} --password={{ couchbase_password }} --server-add={{ hostvars[[item][0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin }} --server-add-password={{ couchbase_password }} --services={{ couchbase_node_services }}"
+    shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --server-add={{ hostvars[[item][0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin_username }} --server-add-password={{ couchbase_admin_password }} --services={{ couchbase_node_services }}"
     with_items: "{{ groups['couchbase-additional'] }}"
     when: couchbase_major_version['stdout'] >= "4"
     # TODO: make this task idempotent
