@@ -12,6 +12,6 @@
     shell: "{{ couchbase_bin_path }}/couchbase-cli node-init -c {{ ansible_fqdn }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --cluster-init-username={{ couchbase_admin_username }} --node-init-hostname={{ ansible_fqdn }} --node-init-data-path={{ couchbase_data_path }} --node-init-index-path={{ couchbase_index_path }}"
     when: couchbase_major_version.stdout > "2"
     register: couchbase_init_node
-    ignore_errors: True
     failed_when:
-      - "couchbase_init_node.stdout == 'ERROR: unable to set hostname for ' ~ ansible_fqdn ~ ' (400) Bad Request\n[\"Renaming is disallowed for nodes that are already part of a cluster\"]'"
+      - "couchbase_init_node.stdout != 'SUCCESS: set hostname for ' ~ ansible_fqdn"
+      - "couchbase_init_node.stdout != 'ERROR: unable to set hostname for ' ~ ansible_fqdn ~ ' (400) Bad Request\n[\"Renaming is disallowed for nodes that are already part of a cluster\"]'"
