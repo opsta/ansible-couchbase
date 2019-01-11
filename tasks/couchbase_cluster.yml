@@ -14,7 +14,6 @@
       - couchbase_major_version.stdout < "4"
       - couchbase_check_cluster_node|int == 1
     register: couchbase_configure_cluster
-    ignore_errors: True
 
   - name: Configure cluster settings (version >= 4)
     shell: "{{ couchbase_bin_path }}/couchbase-cli cluster-init -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --cluster-init-username={{ couchbase_admin_username }} --cluster-init-password={{ couchbase_admin_password }} --cluster-init-port={{ couchbase_admin_port }} --cluster-init-ramsize={{ couchbase_memory }} --services={{ couchbase_node_services }}"
@@ -22,7 +21,6 @@
       - couchbase_major_version.stdout >= "4"
       - couchbase_check_cluster_node|int == 1
     register: couchbase_configure_cluster
-    ignore_errors: True
 
   - name: Join additional cluster nodes (version < 4)
     shell: "{{ couchbase_bin_path }}/couchbase-cli server-add -c {{ couchbase_primary_node }}:{{ couchbase_admin_port }} --user={{ couchbase_admin_username }} --password={{ couchbase_admin_password }} --server-add={{ hostvars[item[0]]['inventory_hostname'] }}:{{ couchbase_admin_port }} --server-add-username={{ couchbase_admin_username }} --server-add-password={{ couchbase_admin_password }}"
