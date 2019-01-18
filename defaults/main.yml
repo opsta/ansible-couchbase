@@ -15,3 +15,5 @@ couchbase_default_bucket: default
 
 couchbase_admin_username: Administrator
 couchbase_admin_password: CHANGEME
+
+couchbase_init_only: false
