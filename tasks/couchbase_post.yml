@@ -1,6 +1,6 @@
 ---
   - include_tasks: couchbase_init.yml
   - include_tasks: couchbase_cluster.yml
-    when: inventory_hostname in groups['couchbase-main']
+    when: inventory_hostname in groups['couchbase-main'] and not couchbase_init_only
     vars:
       couchbase_primary_node: "{{hostvars[groups['couchbase-main'][0]]['ansible_fqdn']}}"
