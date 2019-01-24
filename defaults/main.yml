@@ -1,4 +1,5 @@
 ---
+# home path is hard coded in core services
 couchbase_home_path: "/opt/couchbase"
 couchbase_bin_path: "/opt/couchbase/bin"
 couchbase_data_path: "/opt/couchbase/var/lib/couchbase/data"

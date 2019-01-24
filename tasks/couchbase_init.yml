@@ -3,6 +3,7 @@
     shell: cat /opt/couchbase/VERSION.txt | cut -d '.' -f1
     register: couchbase_major_version
 
+  # Admin port is hard coded in services
   - name: Wait for Admin service
     wait_for:
       port: 8091
