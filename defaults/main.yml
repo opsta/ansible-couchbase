@@ -1,17 +1,12 @@
 ---
+# home path is hard coded in core services
 couchbase_home_path: "/opt/couchbase"
-couchbase_bin_path: "{{ couchbase_home_path }}/bin"
-couchbase_config_file: "{{ couchbase_home_path }}/var/lib/couchbase/config/config.dat"
-couchbase_data_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
-couchbase_index_path: "{{ couchbase_home_path }}/var/lib/couchbase/data"
-couchbase_log_path: "{{ couchbase_home_path }}/var/lib/couchbase/logs"
+couchbase_bin_path: "/opt/couchbase/bin"
+couchbase_data_path: "/opt/couchbase/var/lib/couchbase/data"
+couchbase_index_path: "/opt/couchbase/var/lib/couchbase/data"
 
 couchbase_node_services: "data"
 couchbase_node_memory: 2048
-couchbase_admin_port: 8091
-couchbase_api_port: 8092
-couchbase_epmd_port: 4369
-couchbase_default_bucket: default
 
 couchbase_admin_username: Administrator
 couchbase_admin_password: CHANGEME

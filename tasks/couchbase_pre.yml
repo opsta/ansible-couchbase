@@ -8,19 +8,19 @@
       name: couchbase
       group: couchbase
       shell: /bin/bash
-      home: "{{ couchbase_home_path }}"
+      home: /opt/couchbase
 
-  - name: Create Couchbase index folder
+  - name: Create Couchbase data folder
     file:
-      path: "{{ couchbase_index_path }}"
+      path: "{{ couchbase_data_path }}"
       state: directory
       owner: couchbase
       group: couchbase
       mode: 0770
 
-  - name: Create Couchbase data folder
+  - name: Create Couchbase index folder
     file:
-      path: "{{ couchbase_data_path }}"
+      path: "{{ couchbase_index_path }}"
       state: directory
       owner: couchbase
       group: couchbase
