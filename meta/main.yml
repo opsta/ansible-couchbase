@@ -1,5 +1,6 @@
 ---
 galaxy_info:
+  role_name: couchbase
   author: Opsta
   description: Ansible role to install and config Couchbase
   company: "Opsta (Thailand) Co.,Ltd."
